@@ -27,5 +27,12 @@ export default {
       method: 'post',
       data: hospset
     })
+  },
+  // 根据 id 获取医院信息
+  getById(id) {
+    return request({
+      url: `${api_name}/getHospSet/${id}`,
+      method: 'get'
+    })
   }
 }
