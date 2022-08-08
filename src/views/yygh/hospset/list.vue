@@ -43,11 +43,11 @@
 
       <el-table-column prop="hoscode" label="医院编号" width="160"/>
 
-      <el-table-column prop="apiUrl" label="地址" width="200"/>
+      <el-table-column prop="apiUrl" label="地址" width="180"/>
 
-      <el-table-column prop="contactsName" label="联系人"/>
+      <el-table-column prop="contactsName" label="联系人" width="100"/>
 
-      <el-table-column prop="status" label="状态">
+      <el-table-column prop="status" label="状态" width="100">
         <template slot-scope="scope">
           {{ scope.row.status === 1 ? '可用' : '不可用' }}
         </template>
@@ -59,6 +59,27 @@
             <el-button type="primary" size="mini" icon="el-icon-edit">修改</el-button>
           </router-link>
           <el-button type="danger" size="mini" icon="el-icon-delete" @click="removeDataById(scope.row.id)">删除
+          </el-button>
+        </template>
+      </el-table-column>
+
+      <el-table-column label="操作" align="center">
+        <template slot-scope="scope">
+          <el-button
+            v-if="scope.row.status===1"
+            type="primary"
+            size="mini"
+            icon="el-icon-delete"
+            @click="lockHostSet(scope.row.id,0)"
+          >锁定
+          </el-button>
+          <el-button
+            v-if="scope.row.status===0"
+            type="danger"
+            size="mini"
+            icon="el-icon-delete"
+            @click="lockHostSet(scope.row.id,1)"
+          >取消锁定
           </el-button>
         </template>
       </el-table-column>
@@ -175,6 +196,15 @@ export default {
             this.fetchData(1)
           })
       })
+    },
+
+    // 锁定和取消锁定
+    lockHostSet(id, status) {
+      hospset.lockHospSet(id, status)
+        .then(response => {
+          // 刷新
+          this.fetchData()
+        })
     }
 
   }
