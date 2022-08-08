@@ -43,6 +43,15 @@
         </template>
       </el-table-column>
     </el-table>
+    <!-- 分页 -->
+    <el-pagination
+      :current-page="page"
+      :page-size="limit"
+      :total="total"
+      style="padding: 30px 0; text-align: center;"
+      layout="total, prev, pager, next, jumper"
+      @current-change="fetchData"
+    />
   </div>
 </template>
 
@@ -57,7 +66,7 @@ export default {
       list: [], // 数据列表
       total: 0, // 总记录数
       page: 1, // 页码
-      limit: 10, // 每页显示记录数
+      limit: 5, // 每页显示记录数
       searchObj: {}
     }
   },
