@@ -12,5 +12,11 @@ export default {
       method: 'POST',
       data: searchObj
     })
+  },
+  removeById(id) {
+    return request({
+      url: `${api_name}/remove/${id}`,
+      method: 'delete'
+    })
   }
 }
