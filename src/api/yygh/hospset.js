@@ -13,10 +13,19 @@ export default {
       data: searchObj
     })
   },
+  // 根据 id 删除医院信息
   removeById(id) {
     return request({
       url: `${api_name}/remove/${id}`,
       method: 'delete'
+    })
+  },
+  // 保存医院信息
+  save(hospset) {
+    return request({
+      url: `${api_name}/saveHospSet`,
+      method: 'post',
+      data: hospset
     })
   }
 }
