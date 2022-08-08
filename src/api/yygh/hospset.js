@@ -34,5 +34,13 @@ export default {
       url: `${api_name}/getHospSet/${id}`,
       method: 'get'
     })
+  },
+  // 根据 id 更新医院信息
+  updateById(hospset) {
+    return request({
+      url: `${api_name}/updateHospSet`,
+      method: 'post',
+      data: hospset
+    })
   }
 }

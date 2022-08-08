@@ -53,7 +53,11 @@ export default {
   methods: {
     saveOrUpdate() {
       this.saveBtnDisabled = true
-      this.saveData()
+      if (!this.hospset.id) {
+        this.saveData()
+      } else {
+        this.updateData()
+      }
     },
 
     // 保存
@@ -82,6 +86,24 @@ export default {
         this.$message({
           type: 'error',
           message: '获取数据失败'
+        })
+      })
+    },
+
+    // 根据id更新记录
+    updateData() {
+      this.saveBtnDisabled = true
+      hospset.updateById(this.hospset).then(response => {
+        return this.$message({
+          type: 'success',
+          message: '修改成功!'
+        })
+      }).then(response => {
+        this.$router.push({ path: '/yygh/hospset/list' })
+      }).catch((response) => {
+        this.$message({
+          type: 'error',
+          message: '保存失败'
         })
       })
     }
