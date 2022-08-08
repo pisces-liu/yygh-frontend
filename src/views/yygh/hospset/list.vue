@@ -1,5 +1,19 @@
 <template>
   <div class="app-container">
+    <!--查询表单-->
+    <el-form :inline="true" class="demo-form-inline">
+      <el-form-item>
+        <el-input v-model="searchObj.hosname" placeholder="医院名称"/>
+      </el-form-item>
+
+      <el-form-item>
+        <el-input v-model="searchObj.hoscode" placeholder="医院编号"/>
+      </el-form-item>
+
+      <el-button type="primary" icon="el-icon-search" @click="fetchData()">查询</el-button>
+      <el-button type="default" @click="resetData()">清空</el-button>
+    </el-form>
+    <!--医院表格-->
     <el-table
       v-loading="listLoading"
       :data="list"
@@ -74,6 +88,7 @@ export default {
     this.fetchData()
   },
   methods: {
+    // 获取分页信息
     fetchData(page = 1) {
       this.page = page
       this.listLoading = true
@@ -85,6 +100,11 @@ export default {
           }
           this.listLoading = false
         })
+    },
+    // 重置查询条件
+    resetData() {
+      this.searchObj = {}
+      this.fetchData()
     }
   }
 
