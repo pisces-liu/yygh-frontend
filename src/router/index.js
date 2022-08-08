@@ -63,13 +63,13 @@ export const constantRoutes = [
     meta: { title: '医院管理', icon: 'el-icon-s-help' },
     children: [
       {
-        path: '/list',
+        path: 'list',
         name: '医院设置列表',
         component: () => import('@/views/yygh/hospset/list'),
         meta: { title: '医院设置列表', icon: 'table' }
       },
       {
-        path: '/save',
+        path: 'save',
         name: '添加医院设置',
         component: () => import('@/views/yygh/hospset/save'),
         meta: { title: '添加医院设置', icon: 'tree' }
