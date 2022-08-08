@@ -42,5 +42,13 @@ export default {
       method: 'post',
       data: hospset
     })
+  },
+  // 批量删除医院设置
+  removeRows(idList) {
+    return request({
+      url: `${api_name}/batchRemove`,
+      method: 'delete',
+      data: idList
+    })
   }
 }

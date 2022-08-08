@@ -13,6 +13,10 @@
       <el-button type="primary" icon="el-icon-search" @click="fetchData()">查询</el-button>
       <el-button type="default" @click="resetData()">清空</el-button>
     </el-form>
+    <!-- 批量删除工具条 -->
+    <div>
+      <el-button type="danger" size="mini" @click="removeRows()">批量删除</el-button>
+    </div>
     <!--医院表格-->
     <el-table
       v-loading="listLoading"
@@ -21,8 +25,10 @@
       border
       fit
       highlight-current-row
+      @selection-change="handleSelectionChange"
     >
-
+      <!-- 复选框 -->
+      <el-table-column type="selection" width="55"/>
       <el-table-column
         label="序号"
         width="70"
@@ -81,7 +87,8 @@ export default {
       total: 0, // 总记录数
       page: 1, // 页码
       limit: 5, // 每页显示记录数
-      searchObj: {}
+      searchObj: {},
+      multipleSelection: [] // 批量选择中选择的记录列表
     }
   },
   created() {
@@ -135,7 +142,41 @@ export default {
           })
         }
       })
+    },
+
+    // 当表格复选框选项发生变化的时候触发
+    handleSelectionChange(selection) {
+      this.multipleSelection = selection
+    },
+
+    // 批量删除
+    removeRows() {
+      this.$confirm('此操作将永久删除医院是设置信息, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => { // 确定执行then方法
+        var idList = []
+        // 遍历数组得到每个id值，设置到idList里面
+        for (var i = 0; i < this.multipleSelection.length; i++) {
+          var obj = this.multipleSelection[i]
+          var id = obj.id
+          idList.push(id)
+        }
+        // 调用接口
+        hospset.removeRows(idList)
+          .then(response => {
+            // 提示
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            })
+            // 刷新页面
+            this.fetchData(1)
+          })
+      })
     }
+
   }
 
 }
