@@ -38,6 +38,12 @@
       </el-table-column>
 
     </el-table>
+    <!-- 数据字典导出功能 -->
+    <div class="el-toolbar">
+      <div class="el-toolbar-body" style="justify-content: flex-start;">
+        <el-button type="text" @click="exportData"><i class="fa fa-plus"/> 导出</el-button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -66,6 +72,9 @@ export default {
       dict.dictList(tree.id).then(response => {
         resolve(response.data.list)
       })
+    },
+    exportData() {
+      window.open('http://localhost:8202/admin/cmn/dict/exportData')
     }
   }
 }
