@@ -75,10 +75,10 @@
 
       <el-table-column label="操作" width="230" align="center">
         <template slot-scope="scope">
-          <router-link :to="'/hospSet/hospital/show/'+scope.row.id">
+          <router-link :to="'/yygh/hosp/show/' + scope.row.id">
             <el-button type="primary" size="mini">查看</el-button>
           </router-link>
-          <router-link :to="'/hospSet/hospital/schedule/'+scope.row.hoscode">
+          <router-link :to="'/yygh/hosp/schedule/'+scope.row.hoscode">
             <el-button type="primary" size="mini">排班</el-button>
           </router-link>
 
@@ -169,6 +169,13 @@ export default {
       // eslint-disable-next-line no-undef
       this.limit = size
       this.fetchData(1)
+    },
+    // 更新医院状态
+    updateStatus(id, status) {
+      hospApi.updateStatus(id, status)
+        .then(response => {
+          this.fetchData(this.page)
+        })
     }
   }
 }
