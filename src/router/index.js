@@ -102,6 +102,22 @@ export const constantRoutes = [
       }
     ]
   },
+  {
+    path: '/yygh/hosp',
+    component: Layout,
+    redirect: '/yygh/hosp/list',
+    name: '医院信息',
+    alwaysShow: true,
+    meta: { title: '医院信息', icon: 'example' },
+    children: [
+      {
+        path: 'list',
+        name: '医院列表',
+        component: () => import('@/views/yygh/hosp/list'),
+        meta: { title: '医院列表', icon: 'table' }
+      }
+    ]
+  },
 
   {
     path: '/example',
